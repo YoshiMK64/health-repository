@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<style>
+
+body {
+	font-family: Helvetica, sans-serif;
+}
+
+div {
+	text-align: center;
+}
+
+.header{
+       background-image: url('../resources/flowers.jpg');
+        background-color: black;
+        color: white;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+	
+
+</style>
+	
+	<!-- favicon: tab image -->
+	<link th:href="@{/resources/favicon.ico}"  rel="shortcut icon"/>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<title>Add Symptom</title>
+
+<script src="https://cdn.tiny.cloud/1/87lmsak207uu6arldw5z2pgvz0ql8qjdz0ytw3y1ujn59ay1/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+</head>
+<body>
+
+	<!-- Header with logo, title, and nav bar  -->
+	<div class="header" >
+		
+		<h4 class="display-1"> 
+		<img th:src="@{/resources/favicon.png}" style="width:65px;height:65px;"/>
+		MENTAL HEALTH ASSIST </h4>
+		
+		<div class="row">
+			<div class="d-flex justify-content-center" >
+				<h4 class="display-3"> Admin Access - Save Symptom</h4>
+			</div>
+			
+		</div>
+		
+		<div class="topnav">
+			<a th:href="@{/}">Main Page</a> 
+			<a th:href="@{/admin}">Admin Home</a>
+			<a th:href ="@{/condition/admin/list}">Manage Conditions</a> 
+			<a th:href="@{/treatment/admin/list}" >Manage Treatments</a>
+			<a th:href="@{/symptom/admin/list}" >Manage Symptoms</a>
+			
+		</div>
+		
+		
+	</div>
+	
+	<!-- buttons for back to symptom list and logout -->
+	<div class="container">
+		
+		<hr>
+		
+		<div class ="row">
+			<div class = "col">
+				<div class="d-flex justify-content-center">
+					<a th:href="@{/symptom/admin/list}"
+						class="btn btn-outline-dark btn-block justify-content-md-center">
+						Back to Symptom list </a>
+				</div>
+			</div>
+			<div class="col">
+				<div class="d-flex justify-content-center">
+					<form th:action="@{/logout}" method="post">
+							<input type="submit" class="btn btn-warning btn-block"
+								value="Sign Out" />
+					</form>
+				</div>
+			</div>
+			
+			
+		</div>
+		
+		<hr>
+		
+		<!--  error for if symptom already exists -->
+		<div th:if="${symptomAlreadyExists}"    th:object="${symptomAlreadyExists}">
+			
+			<div class="alert alert-danger col-xs-offset-1 col-xs-10">
+				Symptom with this name already exists.
+			</div>
+		
+		</div>
+		
+		
+		<form action="#" th:action="@{/symptom/admin/saveSymptom}"
+						th:object="${symptom}" method="POST">
+			
+			<!--  Add hidden form field to handle the update -->
+			<!--  This binds to the model attribute and tells which item to update -->
+			<input type="hidden" th:field="*{id}" />
+					 
+			<!-- *{} selects property on referenced th:object -->
+			<input type="text" th:field="*{name}"
+								class="form-control mb-4 col-4"
+								placeholder="Symptom Name">
+			<textarea th:field="*{description}"
+								rows="15" cols="80"
+								class="form-control input-sm"
+								placeholder="Condition Description" ></textarea>
+			
+			<!-- Adding script for text editor to maintain   -->
+			<script>
+                    tinymce.init({
+                        selector: '#description',
+                        plugins: 'link lists media code',
+                        toolbar: 'alignleft aligncenter alignright alignjustify | formatselect | bullist numlist | outdent indent | link code',
+                        toolbar_mode: 'floating',
+                        tinycomments_author: 'Jordan Beard'     
+                    });
+         	</script>
+						
+			
+			<p></p>	
+			
+			<button	type="submit" class="btn btn-info col-2">Save</button>	
+		
+		
+		</form>
+					
+		 <hr>
+	</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+		>
+
+<head>
+
+
+<style>
+
+body {
+	font-family: Helvetica, sans-serif;
+}
+
+div {
+	text-align: center;
+}
+
+.header{
+        background-image: url('../../resources/flowers.jpg');
+        background-color: black;
+        color: white;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #33B7D4;
+  color: white;
+}
+	
+</style>
+	
+	<!-- linking favicon: tab image -->
+	<link th:href="@{/resources/favicon.ico}"  rel="shortcut icon"/>
+
+	
+	<title>Login Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- Reference Bootstrap files -->
+	<link rel="stylesheet"
+		 href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<!--  linking for security  -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+	<!-- Header with a logo, title -->
+	<div class="header" >
+		
+	 	<h4 class="display-1"> 
+		<img th:src="@{/resources/favicon.png}" 
+		style="width:65px;height:65px;"/> MENTAL HEALTH ASSIST </h4>
+		
+		<div class="row">
+			<div class="d-flex justify-content-center" >
+				<h4 class="display-3"> Admin Access - Login</h4>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+   	<div class="container">
+		
+		<div id="loginbox" style="margin-top: 50px;"
+			class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+			
+			<div class="panel panel-info">
+
+				<div class="panel-heading">
+					<div class="panel-title">Sign In: </div>
+				</div>
+
+				<div style="padding-top: 30px" class="panel-body">
+
+					<!-- Login Form -->
+					<form th:action="@{/authenticateTheUser}" 
+						  method="POST" class="form-horizontal">
+
+					    <!-- Place for messages: error, alert etc ... -->
+					    <div class="form-group">
+					        <div class="col-xs-15">
+					            <div>
+								
+									<!-- Check for login error -->
+								
+									<div th:if="${param.error}">
+										
+										<div class="alert alert-danger col-xs-offset-1 col-xs-10">
+											Invalid username and password.
+										</div>
+		
+									</div>
+										
+									<!-- Check for logout -->
+
+									<div th:if="${param.logout}">
+										            
+										<div class="alert alert-success col-xs-offset-1 col-xs-10">
+											You have been logged out.
+										</div>
+								    
+									</div>
+									
+					            </div>
+					        </div>
+					    </div>
+
+						<!-- User name -->
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
+							
+							<input type="text" name="username" placeholder="username" class="form-control">
+						</div>
+
+						<!-- Password -->
+						<div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> 
+							
+							<input type="password" name="password" placeholder="password" class="form-control" >
+						</div>
+						
+						
+						<!-- Login/Submit Button -->
+						<div style="margin-top: 10px" class="form-group">						
+							<div class="col-sm-12 controls">
+								<button type="submit" class="btn btn-outline-dark btn-block">Login</button>
+							</div>
+						</div>
+						
+					</form>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

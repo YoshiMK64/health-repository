@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<style>
+body {
+	font-family: Helvetica, sans-serif;
+}
+
+div {
+	text-align: center;
+}
+
+.header{
+        background-image: url('../resources/flowers.jpg');
+        background-color: black;
+        color: white;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+	
+
+</style>
+	
+	<!-- setting the tab image  -->
+	<link th:href="@{/resources/favicon.ico}"  rel="shortcut icon"/>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<title>Condition details</title>
+</head>
+<body>
+		<!--  Header with title, tree image, and navigation bar directing to root html pages-->
+	<div class="header" >
+		<h4 class="display-1"> 
+		<img th:src="@{/resources/favicon.png}" style="width:65px;height:65px;"/>
+		MENTAL HEALTH ASSIST </h4>
+		
+		<div class="topnav">
+			<a th:href="@{/}">Home</a> 
+			<a th:href ="@{/condition/search}">Search Condition</a> 
+			<a th:href="@{/symptom/search}" >Search Symptom</a>
+			<a th:href="@{/treatment/search}">Search Treatment</a>
+		</div>
+	</div>
+
+	<!--  Main container for displaying content-->
+	<div class="container">
+		<div class="row">
+		
+			<!-- Using thymeleaf to retrieve the object from the model and 
+			and use it to present the condition name -->
+			<div th:object="${condition}">
+				<h4 class="display-4 d-flex justify-content-center" 
+					th:text="*{conditionName}">Condition Name</h4>
+			</div>
+		</div>
+		
+		<hr>
+		
+		<div id="content">
+
+		<div class="container" >
+			<!--  add our html table -->
+			<table class="table table-bordered table-striped"> 
+				<tr> 
+					<!-- Table title -->
+					<th><div class="d-flex justify-content-center">Condition Details</div></th>
+				</tr>
+				
+								<!-- 
+								 retrieve description from object
+								 using th:utext to implement saved html
+								 NOTE: only safe for admin use. Do not use
+								 		for user input
+								-->
+				<tr th:object="${condition}"> 		
+						<td>
+							<div class="d-flex justify-content-center">
+								<span th:utext = "*{conditionDescription}">Description</span>
+							</div>
+						</td>			
+				</tr>
+			</table>
+			
+			
+			<!-- Show list of associated treatments unless list is empty -->
+			<div th:unless="${condition.treatments.empty}"    th:object="${condition}">
+				
+				<hr>
+				
+				<div>
+					<h6 class="d-flex justify-content-center">Associated Treatments</h6>
+				</div>	
+			
+					<table class="table table-bordered table-striped">
+					
+						<!-- for each treatment print-->
+						<tr th:each="tempTreatment: ${condition.treatments}">
+
+							<td>
+								<div class="d-flex justify-content-center">
+									<span th:text="${tempTreatment.name}">Name</span>
+								</div>
+							</td>
+
+							<!--  allow user to link to the treatment details-->
+							<td>
+								<div class="d-flex justify-content-center">
+									<a
+										th:href="@{/treatment/viewTreatment(treatmentId=${tempTreatment.id})}"
+										class="btn btn-outline-dark btn-block">
+										View Treatment</a>
+								</div>
+							</td>
+						</tr>
+					</table>			
+			</div>
+			
+						
+
+			
+			<!--  As above but for symptoms-->
+			<div th:unless="${condition.symptoms.empty}"    th:object="${condition}">
+			
+				<hr>
+			
+				<div>
+					<h6 class="d-flex justify-content-center">Associated Symptoms</h6>
+				</div>
+			
+
+					<table class="table table-bordered table-striped">
+
+					
+						<tr th:each="tempSymptom: ${condition.symptoms}">
+
+							<td>
+								<div class="d-flex justify-content-center">
+									<span th:text="${tempSymptom.name}">Name</span>
+								</div>
+							</td>
+
+							<td>
+								<div class="d-flex justify-content-center">
+									<a
+										th:href="@{/symptom/viewSymptom(symptomId=${tempSymptom.id})}"
+										class="btn btn-outline-dark btn-block">
+										View Symptom</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>			
+				<hr>
+		 	</div>
+		</div>
+	</div>
+</body>
+</html>

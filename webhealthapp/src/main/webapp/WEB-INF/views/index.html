@@ -1,0 +1,114 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<link rel="shortcut icon" type="image/ico" th:src="@{/resources/background.ico}"/>
+
+ <link rel="stylesheet" type="text/css" href="add-style.css">
+
+<style>
+
+body {
+	font-family: Helvetica, sans-serif;
+}
+
+div {
+	text-align: center;
+}
+
+.header{
+        background-image: url('resources/flowers.jpg');
+        background-color: black;
+        color: white;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #33B7D4;
+  color: white;
+}
+	
+</style>
+
+	<!-- favicon: tab image -->
+	<link th:href="@{/resources/favicon.ico}" rel="shortcut icon"/>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<title>Mental Health Assist</title>
+
+</head>
+<body>
+
+	
+	<!-- Header with title, logo and navigation bar -->
+	<div class="header" >
+		
+		<h4 class="display-1"> 
+		<img th:src="@{/resources/favicon.png}" style="width:65px;height:65px;"/>
+		MENTAL HEALTH ASSIST </h4>
+		
+		<div class="topnav">
+			<a class="active" th:href="@{/}">Home</a> 
+			<a th:href ="@{/condition/search}">Search Condition</a> 
+			<a th:href="@{/symptom/search}" >Search Symptom</a>
+			<a th:href="@{/treatment/search}">Search Treatment</a>
+		</div>
+		
+		
+	</div>
+	
+	
+	<!-- About  -->
+	<div class="container"  style="background-color:beige">
+	
+	<p></p>
+		
+	<hr>
+		<p>	This project was born from conversations in a car&#44; as two GPs travelled to and from work each week&#46;</p>
+		<p>	&#34;Wouldn&#39;t it be great to have a &#39;toolkit&#39; for GPs and other practitioners to be able to access simple techniques and procedures in the mental health field&#63;&#34;</P>
+		<p>	The idea emerged from the growing mental health crisis that seemed endemic to many areas in Australia&#44; and perhaps the world&#44; where next level help from psychologists and psychiatrists was exceedingly more and more difficult to access by GPs and their patients&#46; </p>
+		<p>	The two GPs had previously collaborated on a presentation for GP registrars&#44; aimed at upskilling them with simple effective and evidence based techniques&#46; It seemed to be well received&#46; But an easily accessible tool might be better&#46; </p>
+		<p>	The plan was not to replace the next level care, but to &#39;hold&#39; distressed patients, while they waited for appointments&#46; </p>
+		<p>	Having said that&#44; some would never be able to afford this next level care and the GP and the care they could offer&#44; would remain their only therapeutic option&#46; </p>
+			
+		<p>	So here we are &#46; &#46; &#46; </p>
+		
+	
+	
+	<hr>
+	
+	</div>
+	
+	
+</body>
+</html>
